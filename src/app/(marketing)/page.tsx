@@ -35,6 +35,7 @@ export default function HomePage() {
           </Button>
         </SignUpButton>
       </section>
+
       <section className="bg-primary text-primary-foreground">
         <div className="container py-16 flex flex-col gap-16 px-8 md:px-16">
           <h2 className="text-3xl text-center text-balance">
@@ -74,6 +75,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
       <section id="pricing" className=" px-8 py-16 bg-accent/5">
         <h2 className="text-4xl text-center text-balance font-semibold mb-8">
           Pricing software which pays for itself 20x over
@@ -84,6 +86,7 @@ export default function HomePage() {
           ))}
         </div>
       </section>
+
       <footer className="container pt-16 pb-8 flex flex-col sm:flex-row gap-8 sm:gap-4 justify-between items-start">
         <Link href="/">
           <BrandLogo />

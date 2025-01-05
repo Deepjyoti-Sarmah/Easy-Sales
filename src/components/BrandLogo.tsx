@@ -4,7 +4,7 @@ export default function BrandLogo() {
   return (
     <span className="flex items-center gap-2 font-semibold flex-shrink-0 mr-auto text-lg">
       <Globe2Icon className="size-8" />
-      <span>Easy P3</span>
+      <span>Easy PPP</span>
     </span>
   )
 
