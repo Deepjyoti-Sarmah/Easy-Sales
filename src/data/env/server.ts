@@ -4,7 +4,9 @@ import { z } from "zod";
 export const env = createEnv({
   emptyStringAsUndefined: true,
   server: {
-    DATABASE_URL: z.string().url()
+    DATABASE_URL: z.string().url(),
+    CLERK_SECRET_KEY: z.string(),
+    CLERK_WEBHOOK_SECRET: z.string()
   },
   experimental__runtimeEnv: process.env
 })
