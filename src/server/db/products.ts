@@ -13,7 +13,7 @@ export function getProductCountryGroups({
 
 export function getProducts(
   userId: string,
-  { limit }: { limit?: number }
+  { limit }: { limit?: number } = {}
 ) {
   return db.query.ProductTable.findMany({
     where: ({ clerkUserId }, { eq }) => eq(clerkUserId, userId),

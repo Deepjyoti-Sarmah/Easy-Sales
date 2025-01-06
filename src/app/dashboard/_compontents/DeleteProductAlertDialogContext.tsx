@@ -1,8 +1,8 @@
 "use client"
 
 import { AlertDialogFooter, AlertDialogHeader } from "@/components/ui/alert-dialog"
+import { useToast } from "@/hooks/use-toast"
 import { AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogTitle } from "@radix-ui/react-alert-dialog"
-import { Description } from "@radix-ui/react-dialog"
 import { useTransition } from "react"
 
 export function DeleteProductAlertDialogContent({ id }: { id: string }) {

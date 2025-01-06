@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowRightIcon, PlusIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ProductGrid } from "./_compontents/ProductGrid";
 
 export default async function DashboardPage() {
 
