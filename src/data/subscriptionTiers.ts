@@ -1,5 +1,3 @@
-import { env } from "process"
-
 export type TierNames = keyof typeof subscriptionTiers
 export type PaidTierNames = Exclude<TierNames, "Free">
 
@@ -53,8 +51,8 @@ export const subscriptionTiersInOrder = [
   subscriptionTiers.Premium,
 ] as const
 
-export function getTierByPriceId(stripePriceId: string) {
-  return Object.values(subscriptionTiers).find(
-    tier => tier.stripePriceId === stripePriceId
-  )
-}
+// export function getTierByPriceId(stripePriceId: string) {
+//   return Object.values(subscriptionTiers).find(
+//     tier => tier.stripePriceId === stripePriceId
+//   )
+// }

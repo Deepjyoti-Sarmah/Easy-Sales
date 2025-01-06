@@ -20,22 +20,18 @@ const updatedAt = timestamp("updated_at", { withTimezone: true })
   .defaultNow()
   .$onUpdate(() => new Date())
 
-export const ProductTable = pgTable(
-  "products",
-  {
-    id: uuid("id").primaryKey().defaultRandom(),
-    clerkUserId: text("clerk_user_id").notNull(),
-    name: text("name").notNull(),
-    url: text("url").notNull(),
-    description: text("description"),
-    createdAt,
-    updatedAt,
-  },
-  table => ({
-    clerkUserIdIndex: index("products.clerk_user_id_index").on(
-      table.clerkUserId
-    ),
-  })
+export const ProductTable = pgTable("products", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  clerkUserId: text("clerk_user_id").notNull(),
+  name: text("name").notNull(),
+  url: text("url").notNull(),
+  description: text("description"),
+  createdAt,
+  updatedAt,
+},
+  table => [
+    index("products.clerk_user_id_index").on(table.clerkUserId),
+  ]
 )
 
 export const productRelations = relations(ProductTable, ({ one, many }) => ({
