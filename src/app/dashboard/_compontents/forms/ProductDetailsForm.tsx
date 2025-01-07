@@ -17,17 +17,17 @@ import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/hooks/use-toast"
 import { RequiredLabelIcon } from "@/components/RequiredLabelIcon"
-
-const productDetailsSchema = z.object({
-  name: z.string().min(1, "Required"),
-  description: z.string(),
-  url: z.string()
-})
+import { productDetailsSchema } from "@/schemas/products"
 
 export function ProductDetailsForm() {
   const { toast } = useToast()
   const form = useForm<z.infer<typeof productDetailsSchema>>({
     resolver: zodResolver(productDetailsSchema),
+    defaultValues: {
+      name: "",
+      url: "",
+      description: "",
+    },
   })
 
   async function onSubmit(values: z.infer<typeof productDetailsSchema>) {

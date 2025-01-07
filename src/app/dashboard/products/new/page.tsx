@@ -19,7 +19,7 @@ export default function NewProductPage() {
           <CardTitle className="text-xl">Product Details</CardTitle>
         </CardHeader>
         <CardContent>
-          {/* <ProductDetailsForm /> */}
+          <ProductDetailsForm />
         </CardContent>
       </Card>
       {/* </HasPermission> */}
