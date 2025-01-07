@@ -5,6 +5,8 @@ import { Dialog, DialogTrigger } from "@radix-ui/react-dialog"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
 import Link from "next/link"
 import { DotsHorizontalIcon } from "@radix-ui/react-icons"
+import { DeleteProductAlertDialogContent } from "./DeleteProductAlertDialogContext"
+import { AddToSiteProductModalContent } from "./AddToSiteProductModalContent"
 
 export function ProductGrid({
   products,

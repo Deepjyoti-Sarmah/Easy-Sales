@@ -6,6 +6,7 @@ import { ArrowRightIcon, PlusIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ProductGrid } from "./_compontents/ProductGrid";
+import { HasPermission } from "@/components/HasPermission";
 
 export default async function DashboardPage() {
 
@@ -42,7 +43,7 @@ export default async function DashboardPage() {
           <ArrowRightIcon className="group-hover:translate-x-1 transition-transform" />
         </Link>
       </h2>
-      <HasPermission>
+      <HasPermission permission={canAccessAnalytics} renderFallback>
         <AnalyticsChart userId={userId} />
       </HasPermission>
     </>
@@ -50,11 +51,11 @@ export default async function DashboardPage() {
 }
 
 async function AnalyticsChart({ userId }: { userId: string }) {
-  const chartData = await getViewsByDayChartData({
-    userId,
-    interval: CHART_INTERVALS.last30Days,
-    timezone: "UTC",
-  })
+  // const chartData = await getViewsByDayChartData({
+  //   userId,
+  //   interval: CHART_INTERVALS.last30Days,
+  //   timezone: "UTC",
+  // })
 
   return (
     <Card>
