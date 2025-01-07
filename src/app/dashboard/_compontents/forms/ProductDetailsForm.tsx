@@ -1,12 +1,27 @@
-import { useToast } from "@/hooks/use-toast"
-import { z } from "zod"
+"use client"
+
 import { useForm } from "react-hook-form"
+import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } from "@/components/ui/form"
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { Button } from "@/components/ui/button"
+import { useToast } from "@/hooks/use-toast"
+import { RequiredLabelIcon } from "@/components/RequiredLabelIcon"
 
 const productDetailsSchema = z.object({
-  name: z.string(),
+  name: z.string().min(1, "Required"),
+  description: z.string(),
+  url: z.string()
 })
 
 export function ProductDetailsForm() {
@@ -16,7 +31,6 @@ export function ProductDetailsForm() {
   })
 
   async function onSubmit(values: z.infer<typeof productDetailsSchema>) {
-    // const action = product == null ? createProduct : updateProduct.binf(null, product.id)
     // const data = await action(values)
     //
     // if (data?.message) {
@@ -48,10 +62,10 @@ export function ProductDetailsForm() {
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
-
           <FormField
             control={form.control}
             name="url"
@@ -65,8 +79,10 @@ export function ProductDetailsForm() {
                   <Input {...field} />
                 </FormControl>
                 <FormDescription>
-                  Include the protocol (http/https) and the full path to the sale page
+                  Include the protocol (http/https) and the full path to the
+                  sales page
                 </FormDescription>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -78,15 +94,22 @@ export function ProductDetailsForm() {
             <FormItem>
               <FormLabel>Product Description</FormLabel>
               <FormControl>
-                <Textarea class />
+                <Textarea className="min-h-20 resize-none" {...field} />
               </FormControl>
-            </Textarea>
+              <FormDescription>
+                An optional description to help distinguish your product from
+                other products
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
           )}
         />
+        <div className="self-end">
+          <Button disabled={form.formState.isSubmitting} type="submit">
+            Save
+          </Button>
+        </div>
       </form>
-
     </Form>
-
   )
-
 }
