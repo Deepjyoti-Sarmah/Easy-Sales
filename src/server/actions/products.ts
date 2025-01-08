@@ -15,6 +15,7 @@ import {
   updateProductCustomization as updateProductCustomizationDb,
 } from "@/server/db/products"
 import { redirect } from "next/navigation"
+import { canCreateProduct, canCustomizeBanner } from "../permissions"
 
 export async function createProduct(
   unsafeData: z.infer<typeof productDetailsSchema>
