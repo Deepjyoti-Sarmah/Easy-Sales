@@ -19,7 +19,6 @@ import { useToast } from "@/hooks/use-toast"
 import { RequiredLabelIcon } from "@/components/RequiredLabelIcon"
 import { productDetailsSchema } from "@/schemas/products"
 import { createProduct } from "@/server/actions/products"
-import { actionAsyncStorage } from "next/dist/server/app-render/action-async-storage.external"
 
 export function ProductDetailsForm() {
   const { toast } = useToast()
