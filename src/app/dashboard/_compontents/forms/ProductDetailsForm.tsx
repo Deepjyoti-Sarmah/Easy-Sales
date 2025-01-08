@@ -18,6 +18,8 @@ import { Button } from "@/components/ui/button"
 import { useToast } from "@/hooks/use-toast"
 import { RequiredLabelIcon } from "@/components/RequiredLabelIcon"
 import { productDetailsSchema } from "@/schemas/products"
+import { createProduct } from "@/server/actions/products"
+import { actionAsyncStorage } from "next/dist/server/app-render/action-async-storage.external"
 
 export function ProductDetailsForm() {
   const { toast } = useToast()
@@ -32,14 +34,15 @@ export function ProductDetailsForm() {
 
   async function onSubmit(values: z.infer<typeof productDetailsSchema>) {
     // const data = await action(values)
-    //
-    // if (data?.message) {
-    //   toast({
-    //     title: data.error ? "Error" : "Success",
-    //     description: data.message,
-    //     variant: data.error ? "destructive" : "default",
-    //   })
-    // }
+    const data = await createProduct(values)
+
+    if (data?.message) {
+      toast({
+        title: data.error ? "Error" : "Success",
+        description: data.message,
+        variant: data.error ? "destructive" : "default",
+      })
+    }
     console.log(values)
   }
 

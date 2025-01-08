@@ -58,3 +58,17 @@ export async function updateProduct(
 
   return rowCount > 0
 }
+
+export async function deleteProduct({
+  id,
+  userId,
+}: {
+  id: string,
+  userId: string
+}) {
+  const { rowCount } = await db
+    .delete(ProductTable)
+    .where(and(eq(ProductTable.id, id), eq(ProductTable.clerkUserId, userId)))
+
+  return rowCount > 0
+}

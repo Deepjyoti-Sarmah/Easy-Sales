@@ -1,12 +1,24 @@
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { AlertDialog, AlertDialogTrigger } from "@radix-ui/react-alert-dialog"
-import { Dialog, DialogTrigger } from "@radix-ui/react-dialog"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
-import Link from "next/link"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 import { DotsHorizontalIcon } from "@radix-ui/react-icons"
-import { DeleteProductAlertDialogContent } from "./DeleteProductAlertDialogContext"
+import Link from "next/link"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Dialog, DialogTrigger } from "@/components/ui/dialog"
 import { AddToSiteProductModalContent } from "./AddToSiteProductModalContent"
+import { AlertDialog, AlertDialogTrigger } from "@/components/ui/alert-dialog"
+import { DeleteProductAlertDialogContent } from "./DeleteProductAlertDialogContext"
 
 export function ProductGrid({
   products,
@@ -51,7 +63,7 @@ export function ProductCard({
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" className="size-8 p-0">
                     <div className="sr-only">Action Menu</div>
-                    <DotsHorizontalIcon />
+                    <DotsHorizontalIcon className="size-4" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>

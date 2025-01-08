@@ -38,14 +38,14 @@ export default async function DashboardPage() {
       <h2 className="mb-6 text-3xl font-semibold flex justify-between mt-12">
         <Link
           href="/dashboard/Analytics"
-          className="">
+          className="group flex gap-2 items-center hover:underline">
           Analytics
           <ArrowRightIcon className="group-hover:translate-x-1 transition-transform" />
         </Link>
       </h2>
-      <HasPermission permission={canAccessAnalytics} renderFallback>
-        <AnalyticsChart userId={userId} />
-      </HasPermission>
+      {/* <HasPermission permission={canAccessAnalytics} renderFallback> */}
+      {/*   <AnalyticsChart userId={userId} /> */}
+      {/* </HasPermission> */}
     </>
   )
 }
@@ -63,7 +63,8 @@ async function AnalyticsChart({ userId }: { userId: string }) {
         <CardTitle>Views by Day</CardTitle>
       </CardHeader>
       <CardContent>
-        <ViewsByDayChart chartData={chartData} />
+        {/* <ViewsByDayChart chartData={chartData} /> */}
+        CardContent
       </CardContent>
     </Card>
   )

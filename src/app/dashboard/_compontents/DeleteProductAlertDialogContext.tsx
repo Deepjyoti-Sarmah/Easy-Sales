@@ -1,8 +1,16 @@
 "use client"
 
-import { AlertDialogFooter, AlertDialogHeader } from "@/components/ui/alert-dialog"
+import {
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
 import { useToast } from "@/hooks/use-toast"
-import { AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogTitle } from "@radix-ui/react-alert-dialog"
+import { deleteProduct } from "@/server/actions/products"
 import { useTransition } from "react"
 
 export function DeleteProductAlertDialogContent({ id }: { id: string }) {
@@ -14,7 +22,8 @@ export function DeleteProductAlertDialogContent({ id }: { id: string }) {
       <AlertDialogHeader>
         <AlertDialogTitle>Are you sure?</AlertDialogTitle>
         <AlertDialogDescription>
-          This action cannot be undone. This will permanently delete this product.
+          This action cannot be undone. This will permanently delete this
+          product.
         </AlertDialogDescription>
       </AlertDialogHeader>
       <AlertDialogFooter>
