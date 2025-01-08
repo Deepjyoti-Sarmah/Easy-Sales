@@ -20,18 +20,31 @@ import { RequiredLabelIcon } from "@/components/RequiredLabelIcon"
 import { productDetailsSchema } from "@/schemas/products"
 import { createProduct } from "@/server/actions/products"
 
-export function ProductDetailsForm() {
+export function ProductDetailsForm({
+  product,
+}: {
+  product?: {
+    id: string
+    name: string
+    description: string | null
+    url: string
+  }
+}) {
   const { toast } = useToast()
   const form = useForm<z.infer<typeof productDetailsSchema>>({
     resolver: zodResolver(productDetailsSchema),
-    defaultValues: {
-      name: "",
-      url: "",
-      description: "",
-    },
+    defaultValues: product
+      ? { ...product, description: product.description ?? "" }
+      : {
+        name: "",
+        url: "",
+        description: "",
+      },
   })
 
   async function onSubmit(values: z.infer<typeof productDetailsSchema>) {
+    // const action = product == null ? createProduct : updateProduct.bind(null, product.id)
+
     // const data = await action(values)
     const data = await createProduct(values)
 
@@ -81,8 +94,7 @@ export function ProductDetailsForm() {
                   <Input {...field} />
                 </FormControl>
                 <FormDescription>
-                  Include the protocol (http/https) and the full path to the
-                  sales page
+                  Include the protocol (http/https) and the full path to the sales page
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -99,8 +111,7 @@ export function ProductDetailsForm() {
                 <Textarea className="min-h-20 resize-none" {...field} />
               </FormControl>
               <FormDescription>
-                An optional description to help distinguish your product from
-                other products
+                An optional description to help distinguish your product from other products
               </FormDescription>
               <FormMessage />
             </FormItem>
