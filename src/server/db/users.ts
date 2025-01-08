@@ -1,6 +1,7 @@
 import { ProductTable, UserSubscriptionTable } from "@/drizzle/schema";
 import { eq } from "drizzle-orm";
 import { db } from "@/drizzle/db"
+import { CACHE_TAGS, revalidateDbCache } from "@/lib/cache";
 
 export async function deleteUser(clerkUserId: string) {
   const [userSubscriptions, products] = await db.batch([
@@ -17,4 +18,22 @@ export async function deleteUser(clerkUserId: string) {
         id: ProductTable.id,
       }),
   ])
+
+  userSubscriptions.forEach(sub => {
+    revalidateDbCache({
+      tag: CACHE_TAGS.subscription,
+      id: sub.id,
+      userId: clerkUserId,
+    })
+  })
+
+  products.forEach(prod => {
+    revalidateDbCache({
+      tag: CACHE_TAGS.products,
+      id: prod.id,
+      userId: clerkUserId,
+    })
+  })
+
+  return [userSubscriptions, products]
 }

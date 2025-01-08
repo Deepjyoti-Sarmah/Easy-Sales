@@ -1,8 +1,9 @@
 import { db } from "@/drizzle/db"
-import { ProductCustomizationTable, ProductTable } from "@/drizzle/schema"
+import { CountryGroupDiscountTable, ProductCustomizationTable, ProductTable } from "@/drizzle/schema"
 import { CACHE_TAGS, dbCache, getGlobalTag, getIdTag, getUserTag, revalidateDbCache } from "@/lib/cache"
 import { removeTrailingSlash } from "@/lib/utils"
-import { and, eq, count } from "drizzle-orm"
+import { and, eq, count, inArray, sql } from "drizzle-orm"
+import { BatchItem } from "drizzle-orm/batch"
 
 export function getProductCountryGroups({
   productId,
@@ -123,6 +124,14 @@ export async function updateProduct(
     .set(data)
     .where(and(eq(ProductTable.clerkUserId, userId), eq(ProductTable.id, id)))
 
+  if (rowCount > 0) {
+    revalidateDbCache({
+      tag: CACHE_TAGS.products,
+      userId,
+      id,
+    })
+  }
+
   return rowCount > 0
 }
 
@@ -137,7 +146,90 @@ export async function deleteProduct({
     .delete(ProductTable)
     .where(and(eq(ProductTable.id, id), eq(ProductTable.clerkUserId, userId)))
 
+  if (rowCount > 0) {
+    revalidateDbCache({
+      tag: CACHE_TAGS.products,
+      userId,
+      id,
+    })
+  }
+
   return rowCount > 0
+}
+
+export async function updateCountryDiscounts(
+  deleteGroup: { countryGroupId: string }[],
+  insertGroup: (typeof CountryGroupDiscountTable.$inferInsert)[],
+  { productId, userId }: { productId: string; userId: string }
+) {
+  const product = await getProduct({ id: productId, userId })
+  if (product == null) return false
+
+  const statements: BatchItem<"pg">[] = []
+  if (deleteGroup.length > 0) {
+    statements.push(
+      db.delete(CountryGroupDiscountTable).where(
+        and(
+          eq(CountryGroupDiscountTable.productId, productId),
+          inArray(
+            CountryGroupDiscountTable.countryGroupId,
+            deleteGroup.map(group => group.countryGroupId)
+          )
+        )
+      )
+    )
+  }
+
+  if (insertGroup.length > 0) {
+    statements.push(
+      db
+        .insert(CountryGroupDiscountTable)
+        .values(insertGroup)
+        .onConflictDoUpdate({
+          target: [
+            CountryGroupDiscountTable.productId,
+            CountryGroupDiscountTable.countryGroupId,
+          ],
+          set: {
+            coupon: sql.raw(
+              `excluded.${CountryGroupDiscountTable.coupon.name}`
+            ),
+            discountPercentage: sql.raw(
+              `excluded.${CountryGroupDiscountTable.discountPercentage.name}`
+            ),
+          },
+        })
+    )
+  }
+
+  if (statements.length > 0) {
+    await db.batch(statements as [BatchItem<"pg">])
+  }
+
+  revalidateDbCache({
+    tag: CACHE_TAGS.products,
+    userId,
+    id: productId,
+  })
+}
+
+export async function updateProductCustomization(
+  data: Partial<typeof ProductCustomizationTable.$inferInsert>,
+  { productId, userId }: { productId: string; userId: string }
+) {
+  const product = await getProduct({ id: productId, userId })
+  if (product == null) return
+
+  await db
+    .update(ProductCustomizationTable)
+    .set(data)
+    .where(eq(ProductCustomizationTable.productId, productId))
+
+  revalidateDbCache({
+    tag: CACHE_TAGS.products,
+    userId,
+    id: productId,
+  })
 }
 
 async function getProductCountryGroupsInternal({
