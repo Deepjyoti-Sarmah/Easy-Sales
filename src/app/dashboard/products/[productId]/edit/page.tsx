@@ -15,7 +15,7 @@ import {
   getProductCountryGroups,
   getProductCustomization,
 } from "@/server/db/products"
-import { canCustomizeBanner } from "@/server/permissions"
+import { canCustomizeBanner, canRemoveBranding } from "@/server/permissions"
 import { auth } from "@clerk/nextjs/server"
 import { notFound } from "next/navigation"
 

@@ -19,6 +19,7 @@ import { useToast } from "@/hooks/use-toast"
 import { RequiredLabelIcon } from "@/components/RequiredLabelIcon"
 import { productDetailsSchema } from "@/schemas/products"
 import { createProduct } from "@/server/actions/products"
+import { updateProduct } from "@/server/actions/products"
 
 export function ProductDetailsForm({
   product,
@@ -43,10 +44,9 @@ export function ProductDetailsForm({
   })
 
   async function onSubmit(values: z.infer<typeof productDetailsSchema>) {
-    // const action = product == null ? createProduct : updateProduct.bind(null, product.id)
+    const action = product == null ? createProduct : updateProduct.bind(null, product.id)
 
-    // const data = await action(values)
-    const data = await createProduct(values)
+    const data = await action(values)
 
     if (data?.message) {
       toast({
@@ -55,7 +55,7 @@ export function ProductDetailsForm({
         variant: data.error ? "destructive" : "default",
       })
     }
-    console.log(values)
+    // console.log(values)
   }
 
   return (
