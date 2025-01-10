@@ -103,7 +103,18 @@ async function CountryTab({
         <CountryDiscountsForm
           productId={productId}
           // countryGroups={countryGroups}
-          countryGroups={countryGroups}
+          countryGroups={[
+            {
+              countries: [
+                { code: "US", name: "United State" },
+                { code: "IN", name: "India" },
+              ],
+              id: "sdfds",
+              name: "Group 1",
+              recommendedDiscountPercentage: 0.1,
+              discount: { coupon: "H1", discountPercentage: 0.2 },
+            },
+          ]}
         />
       </CardContent>
     </Card>
