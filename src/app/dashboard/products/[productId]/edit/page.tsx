@@ -96,13 +96,13 @@ async function CountryTab({
       <CardHeader>
         <CardTitle className="text-xl">Country Discounts</CardTitle>
         <CardDescription>
-          Leave the discount field blank if you do not want to display deals for
-          any specific parity group.
+          Leave the discount field blank if you do not want to display deals for any specific parity group.
         </CardDescription>
       </CardHeader>
       <CardContent>
         <CountryDiscountsForm
           productId={productId}
+          // countryGroups={countryGroups}
           countryGroups={countryGroups}
         />
       </CardContent>
