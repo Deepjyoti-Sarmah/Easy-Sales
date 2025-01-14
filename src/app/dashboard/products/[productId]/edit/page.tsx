@@ -117,7 +117,7 @@ async function CustomizationsTab({
   userId: string
 }) {
   const customization = await getProductCustomization({ productId, userId })
-
+  
   if (customization == null) return notFound()
 
   return (
