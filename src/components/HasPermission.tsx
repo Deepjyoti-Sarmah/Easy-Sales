@@ -15,7 +15,11 @@ export async function HasPermission({
 }) {
   const { userId } = await auth()
   const hasPermission = await permission(userId)
+
   if (hasPermission) return children
-  if (renderFallback) return <NoPermissionCard>{fallbackText}</NoPermissionCard>
+
+  if (renderFallback)
+    return <NoPermissionCard>{fallbackText}</NoPermissionCard>
+
   return null
 }
