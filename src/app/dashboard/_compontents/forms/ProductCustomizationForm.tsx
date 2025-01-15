@@ -25,8 +25,8 @@ import { z } from "zod"
 
 export function ProductCustomizationForm({
   customization,
-  canCustomizeBanner,
-  canRemoveBranding,
+  // canCustomizeBanner,
+  // canRemoveBranding,
 }: {
   customization: {
     productId: string
@@ -38,8 +38,8 @@ export function ProductCustomizationForm({
     isSticky: boolean
     classPrefix: string | null
   }
-  canRemoveBranding: boolean
-  canCustomizeBanner: boolean
+  // canRemoveBranding: boolean
+  // canCustomizeBanner: boolean
 }) {
   const { toast } = useToast()
   const form = useForm<z.infer<typeof productCustomizationSchema>>({
@@ -78,14 +78,14 @@ export function ProductCustomizationForm({
             discount: "50",
           }}
           customization={formValues}
-          canRemoveBranding={canRemoveBranding}
+        // canRemoveBranding={canRemoveBranding}
         />
       </div>
-      {!canCustomizeBanner && (
-        <div className="mt-8">
-          <NoPermissionCard />
-        </div>
-      )}
+      {/* {!canCustomizeBanner && ( */}
+      {/*   <div className="mt-8"> */}
+      {/*     <NoPermissionCard /> */}
+      {/*   </div> */}
+      {/* )} */}
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -103,7 +103,7 @@ export function ProductCustomizationForm({
                   </FormLabel>
                   <FormControl>
                     <Textarea
-                      disabled={!canCustomizeBanner}
+                      // disabled={!canCustomizeBanner}
                       className="min-h-20 resize-none"
                       {...field}
                     />
@@ -126,7 +126,8 @@ export function ProductCustomizationForm({
                       <RequiredLabelIcon />
                     </FormLabel>
                     <FormControl>
-                      <Input disabled={!canCustomizeBanner} {...field} />
+                      {/* <Input disabled={!canCustomizeBanner} {...field} /> */}
+                      <Input  {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -142,7 +143,8 @@ export function ProductCustomizationForm({
                       <RequiredLabelIcon />
                     </FormLabel>
                     <FormControl>
-                      <Input disabled={!canCustomizeBanner} {...field} />
+                      {/* <Input disabled={!canCustomizeBanner} {...field} /> */}
+                      <Input  {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -158,7 +160,8 @@ export function ProductCustomizationForm({
                       <RequiredLabelIcon />
                     </FormLabel>
                     <FormControl>
-                      <Input disabled={!canCustomizeBanner} {...field} />
+                      {/* <Input disabled={!canCustomizeBanner} {...field} /> */}
+                      <Input  {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -175,7 +178,7 @@ export function ProductCustomizationForm({
                         className="block"
                         checked={field.value}
                         onCheckedChange={field.onChange}
-                        disabled={!canCustomizeBanner}
+                        // disabled={!canCustomizeBanner}
                       />
                     </FormControl>
                     <FormMessage />
@@ -192,7 +195,8 @@ export function ProductCustomizationForm({
                       <RequiredLabelIcon />
                     </FormLabel>
                     <FormControl>
-                      <Input disabled={!canCustomizeBanner} {...field} />
+                      {/* <Input disabled={!canCustomizeBanner} {...field} /> */}
+                      <Input  {...field} />
                     </FormControl>
                     <FormDescription>
                       HTML container selector where you want to place the
@@ -209,7 +213,8 @@ export function ProductCustomizationForm({
                   <FormItem>
                     <FormLabel>CSS Prefix</FormLabel>
                     <FormControl>
-                      <Input disabled={!canCustomizeBanner} {...field} />
+                      {/* <Input disabled={!canCustomizeBanner} {...field} /> */}
+                      <Input  {...field} />
                     </FormControl>
                     <FormDescription>
                       An optional prefix added to all CSS classes to avoid
@@ -221,13 +226,13 @@ export function ProductCustomizationForm({
               />
             </div>
           </div>
-          {canCustomizeBanner && (
+          {/* {canCustomizeBanner && ( */}
             <div className="self-end">
               <Button disabled={form.formState.isSubmitting} type="submit">
                 Save
               </Button>
             </div>
-          )}
+          {/* )} */}
         </form>
       </Form>
     </>

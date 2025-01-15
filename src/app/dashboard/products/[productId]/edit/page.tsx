@@ -117,7 +117,7 @@ async function CustomizationsTab({
   userId: string
 }) {
   const customization = await getProductCustomization({ productId, userId })
-  
+
   if (customization == null) return notFound()
 
   return (
@@ -127,8 +127,8 @@ async function CustomizationsTab({
       </CardHeader>
       <CardContent>
         <ProductCustomizationForm
-          canRemoveBranding={await canRemoveBranding(userId)}
-          canCustomizeBanner={await canCustomizeBanner(userId)}
+          // canRemoveBranding={await canRemoveBranding(userId)}
+          // canCustomizeBanner={await canCustomizeBanner(userId)}
           customization={customization}
         />
       </CardContent>
