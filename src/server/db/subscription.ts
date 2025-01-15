@@ -25,6 +25,7 @@ export async function createUserSubscription(
       userId: newSubscription.userId,
     })
   }
+
   return newSubscription
 }
 

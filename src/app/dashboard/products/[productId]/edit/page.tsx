@@ -96,7 +96,8 @@ async function CountryTab({
       <CardHeader>
         <CardTitle className="text-xl">Country Discounts</CardTitle>
         <CardDescription>
-          Leave the discount field blank if you do not want to display deals for any specific parity group.
+          Leave the discount field blank if you do not want to display deals for
+          any specific parity group.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -127,8 +128,8 @@ async function CustomizationsTab({
       </CardHeader>
       <CardContent>
         <ProductCustomizationForm
-          // canRemoveBranding={await canRemoveBranding(userId)}
-          // canCustomizeBanner={await canCustomizeBanner(userId)}
+          canRemoveBranding={await canRemoveBranding(userId)}
+          canCustomizeBanner={await canCustomizeBanner(userId)}
           customization={customization}
         />
       </CardContent>

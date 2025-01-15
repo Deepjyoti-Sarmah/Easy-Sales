@@ -4,9 +4,9 @@ export function Banner({
   message,
   mappings,
   customization,
-  // canRemoveBranding,
+  canRemoveBranding,
 }: {
-  // canRemoveBranding: boolean
+  canRemoveBranding: boolean
   message: string
   mappings: {
     coupon: string
@@ -67,14 +67,14 @@ export function Banner({
             __html: mappedMessage,
           }}
         />
-        {/* {!canRemoveBranding && ( */}
+        {!canRemoveBranding && (
           <a
             className={`${prefix}easy-ppp-branding`}
             href={`${env.NEXT_PUBLIC_SERVER_URL}`}
           >
             Powered by Easy PPP
           </a>
-        {/* )} */}
+        )}
       </div>
     </>
   )
