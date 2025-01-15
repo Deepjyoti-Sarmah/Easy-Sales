@@ -20,12 +20,15 @@ import { auth } from "@clerk/nextjs/server"
 import { notFound } from "next/navigation"
 
 export default async function EditProductPage({
-  params: { productId },
-  searchParams: { tab = "details" },
+  params,
+  searchParams,
 }: {
   params: { productId: string }
   searchParams: { tab?: string }
 }) {
+  const productId = params.productId
+  const tab = searchParams.tab ?? "details"
+
   const { userId, redirectToSignIn } = await auth()
   if (userId == null) return redirectToSignIn()
 
@@ -128,10 +131,8 @@ async function CustomizationsTab({
       </CardHeader>
       <CardContent>
         <ProductCustomizationForm
-          // canRemoveBranding={await canRemoveBranding(userId)}
-          // canCustomizeBanner={await canCustomizeBanner(userId)}
-          canRemoveBranding={true}
-          canCustomizeBanner={true}
+          canRemoveBranding={await canRemoveBranding(userId)}
+          canCustomizeBanner={await canCustomizeBanner(userId)}
           customization={customization}
         />
       </CardContent>
