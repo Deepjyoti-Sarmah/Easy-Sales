@@ -1,5 +1,6 @@
 import { subscriptionTiers, TierNames } from "@/data/subscriptionTiers"
 import { relations } from "drizzle-orm"
+import { z } from "zod"
 import {
   boolean,
   index,
@@ -195,3 +196,16 @@ export const UserSubscriptionTable = pgTable(
     ).on(table.stripeCustomerId),
   })
 )
+
+export const cancelSubscriptionSchema = z.object({
+  confirm: z.boolean().optional()
+})
+
+export const checkoutSubscriptionSchema = z.object({
+  tier: z.enum(["Basic", "Standard", "Premium"] as const)
+})
+
+export type SubscriptionForData = {
+  error?: boolean
+  message?: string
+}

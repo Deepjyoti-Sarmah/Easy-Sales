@@ -15,6 +15,7 @@ import {
 } from "@/data/subscriptionTiers"
 import { formatCompactNumber } from "@/lib/formatters"
 import { cn } from "@/lib/utils"
+import { createCancelSession, createCheckoutSession, createCustomerPortalSession } from "@/server/actions/stripe"
 import { getProductCount } from "@/server/db/products"
 import { getProductViewCount } from "@/server/db/productViews"
 import { getUserSubscriptionTier } from "@/server/db/subscription"
@@ -24,7 +25,6 @@ import { CheckIcon } from "lucide-react"
 import { ReactNode } from "react"
 
 export default async function SubscriptionPage() {
-
   const { userId, redirectToSignIn } = await auth()
   if (userId == null) return redirectToSignIn()
 
@@ -78,9 +78,7 @@ export default async function SubscriptionPage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <form
-              // action={createCustomerPortalSession}
-              >
+              <form action={createCustomerPortalSession}>
                 <Button
                   variant="accent"
                   className="text-lg rounded-lg"
@@ -127,11 +125,11 @@ function PricingCard({
       </CardHeader>
       <CardContent>
         <form
-        // action={
-        //   name === "Free"
-        //     ? createCancelSession
-        //     : createCheckoutSession.bind(null, name)
-        // }
+          action={
+            name === "Free"
+              ? createCancelSession
+              : createCheckoutSession.bind(null, name)
+          }
         >
           <Button
             disabled={isCurrent}
