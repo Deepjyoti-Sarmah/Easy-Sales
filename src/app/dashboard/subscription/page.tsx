@@ -128,9 +128,12 @@ function PricingCard({
           action={
             name === "Free"
               ? createCancelSession
-              : createCheckoutSession.bind(null, name)
+              : createCheckoutSession
           }
         >
+          {name !== "Free" && (
+            <input type="hidden" name="tier" value={name} />
+          )}
           <Button
             disabled={isCurrent}
             className="text-lg w-full rounded-lg"
@@ -150,7 +153,7 @@ function PricingCard({
         {canAccessAnalytics && <Feature>Advanced analytics</Feature>}
         {canRemoveBranding && <Feature>Remove Easy PPP branding</Feature>}
       </CardFooter>
-    </Card>
+    </Card >
   )
 }
 
