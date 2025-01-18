@@ -1,15 +1,15 @@
-import { env } from "@/data/env/server";
-import { getTierByPriceId, subscriptionTiers } from "@/data/subscriptionTiers";
-import { UserSubscriptionTable } from "@/drizzle/schema";
-import { updateUserSubscription } from "@/server/db/subscription";
-import { eq } from "drizzle-orm";
-import { NextRequest } from "next/server";
-import Stripe from "stripe";
+import { env } from "@/data/env/server"
+import { getTierByPriceId, subscriptionTiers } from "@/data/subscriptionTiers"
+import { UserSubscriptionTable } from "@/drizzle/schema"
+import { updateUserSubscription } from "@/server/db/subscription"
+import { eq } from "drizzle-orm"
+import { NextRequest } from "next/server"
+import Stripe from "stripe"
 
 const stripe = new Stripe(env.STRIPE_SECRET_KEY)
 
 export async function POST(request: NextRequest) {
-  const event = stripe.webhooks.constructEvent(
+  const event = await stripe.webhooks.constructEvent(
     await request.text(),
     request.headers.get("stripe-signature") as string,
     env.STRIPE_WEBHOOK_SECRET
@@ -39,7 +39,6 @@ async function handleCreate(subscription: Stripe.Subscription) {
   if (clerkUserId == null || tier == null) {
     return new Response(null, { status: 500 })
   }
-
   const customer = subscription.customer
   const customerId = typeof customer === "string" ? customer : customer.id
 
