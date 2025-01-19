@@ -3,6 +3,7 @@ import { CountryTable, ProductTable, ProductViewTable } from "@/drizzle/schema"
 import { CACHE_TAGS, dbCache, getGlobalTag, getIdTag, getUserTag, revalidateDbCache } from "@/lib/cache"
 import { startOfDay } from "date-fns"
 import { and, count, desc, eq, gte, sql } from "drizzle-orm"
+import { tz } from "@date-fns/tz"
 
 export function getProductViewCount(userId: string, startDate: Date) {
   const cacheFn = dbCache(getProductViewCountInternal, {
