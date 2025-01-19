@@ -1,13 +1,14 @@
 import { Banner } from "@/components/Banner"
 import { env } from "@/data/env/server"
 import { getProductForBanner } from "@/server/db/products"
+import { createProductView } from "@/server/db/productViews"
 import { canRemoveBranding, canShowDiscountBanner } from "@/server/permissions"
 import { headers } from "next/headers"
 import { notFound } from "next/navigation"
 import { NextRequest } from "next/server"
 import { createElement } from "react"
 
-export const runtime = "edge"
+// export const runtime = "edge"
 
 export async function GET(
   request: NextRequest,
