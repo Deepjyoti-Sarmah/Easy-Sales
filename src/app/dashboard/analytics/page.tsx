@@ -20,6 +20,7 @@ import Link from "next/link"
 import { createURL } from "@/lib/utils"
 import { getProducts } from "@/server/db/products"
 import { TimezoneDropdownMenuItem } from "../_compontents/TimezoneDropdownMenuItem"
+import { ViewsByDayChart } from "../_compontents/charts/ViewsByDayChar"
 
 export default async function AnalyticsPage({
   searchParams,
